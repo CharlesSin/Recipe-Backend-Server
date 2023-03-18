@@ -15,4 +15,8 @@ app.use(cors());
 app.use("/api/auth", userRouter);
 app.use("/api/recipes", recipesRouter);
 
+app.get("/", function (req, res) {
+    res.send("Server Start Up Successfull")
+})
+
 app.listen(3001, () => console.log("Server started"));
