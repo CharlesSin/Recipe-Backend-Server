@@ -9,27 +9,24 @@ dotenv.config();
 
 const app = express();
 
-const whitelist = [process.env.WHITELISTAPI01, process.env.WHITELISTAPI02]
-// whitelist.push(process.env.WHITELISTAPI01);
-// whitelist.push(process.env.WHITELISTAPI02);
-
-const corsOptions = {
-    origin: function (origin, callback) {
-        if (whitelist.indexOf(origin) !== -1) {
-            callback(null, true)
-        } else {
-            callback(new Error('Not allowed by CORS'))
-        }
+const whitelist = [process.env.WHITELISTAPI01, process.env.WHITELISTAPI02];
+const corsOptionsDelegate = function (req, callback) {
+    let corsOptions;
+    if (whitelist.indexOf(req.header('Origin')) !== -1) {
+        corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
+    } else {
+        corsOptions = { origin: false } // disable CORS for this request
     }
+    callback(null, corsOptions) // callback expects two parameters: error and options
 }
 
 app.use(express.json());
-app.use(cors(corsOptions));
+app.use(cors(corsOptionsDelegate));
 
 app.use("/api/auth", userRouter);
 app.use("/api/recipes", recipesRouter);
 
-app.get("/", function (req, res) {
+app.get("/", cors(), (req, res) => {
     res.send("Server Start Up Successfull")
 })
 
