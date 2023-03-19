@@ -2,13 +2,17 @@
 
 Recipe Web App (Backend)
 
-## Screenshot (Coming Soon)
+## Demo
 
-## Demo(Coming Soon)
+[Demo](https://eugene-recipe.netlify.app)
+
+## Screenshot
+
+![alt text](https://github.com/CharlesSin/Recipe-Backend-Server/blob/main/public/images/screenshot.png)
 
 ## Introduction
 
-使用 Express + JWT + MongDB 實作食譜後臺
+使用 Express + JWT + MongDB 實作食譜後臺 API
 
 ## Use Technology & Library
 
