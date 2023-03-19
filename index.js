@@ -10,6 +10,9 @@ dotenv.config();
 const app = express();
 
 const whitelist = [process.env.WHITELISTAPI01, process.env.WHITELISTAPI02]
+// whitelist.push(process.env.WHITELISTAPI01);
+// whitelist.push(process.env.WHITELISTAPI02);
+
 const corsOptions = {
     origin: function (origin, callback) {
         if (whitelist.indexOf(origin) !== -1) {
