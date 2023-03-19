@@ -9,8 +9,19 @@ dotenv.config();
 
 const app = express();
 
+const whitelist = [process.env.WHITELISTAPI01, process.env.WHITELISTAPI02]
+const corsOptions = {
+    origin: function (origin, callback) {
+        if (whitelist.indexOf(origin) !== -1) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'))
+        }
+    }
+}
+
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.use("/api/auth", userRouter);
 app.use("/api/recipes", recipesRouter);
